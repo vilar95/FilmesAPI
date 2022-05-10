@@ -9,7 +9,7 @@ using System.Linq;
 namespace FilmesAPI.Controllers
 {
     [ApiController]
-    [Route("Controller")]
+    [Route("[Controller]")]
     public class EnderecoController : ControllerBase
     {
         private AppDbContext _context;
@@ -21,7 +21,7 @@ namespace FilmesAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult AdicionaEndereco([FromBody] CreateEnderecoDTO enderecoDTO)
         {
             Endereco endereco = _mapper.Map<Endereco>(enderecoDTO);

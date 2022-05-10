@@ -9,7 +9,7 @@ using System.Linq;
 namespace FilmesAPI.Controllers
 {
     [ApiController]
-    [Route("[Controller")]
+    [Route("[Controller]")]
     public class CinemaController : ControllerBase
     {
         private AppDbContext _context;
@@ -21,7 +21,7 @@ namespace FilmesAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult AdicionaCinema([FromBody]CreateCinemaDTO cinemaDTO)
         {
             Cinema cinema = _mapper.Map<Cinema>(cinemaDTO);
@@ -30,7 +30,7 @@ namespace FilmesAPI.Controllers
             return CreatedAtAction(nameof(RecuperaCinemaPorId), new { Id = cinema.Id }, cinema);
         }
         [HttpGet]
-        public IEnumerable<Cinema> RecuperaCinema()
+        public IEnumerable<Cinema> RecuperaCinema([FromQuery] string nomeDoFilme)
         {
             return _context.Cinemas;
         }
@@ -41,7 +41,7 @@ namespace FilmesAPI.Controllers
             if (cinema != null)
             {
                 ReadCinemaDTO cinemaDTO = _mapper.Map<ReadCinemaDTO>(cinema);
-                return Ok(cinema);
+                return Ok(cinemaDTO);
             }
             return NotFound();
         }
